@@ -10,16 +10,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WeatherViewModel(private val repoImpl: WeatherRepoImpl): ViewModel() {
-    init {
-        getForecast()
-    }
+//    init {
+//        getForecast()
+//    }
 
     private val _forecast = MutableLiveData<WeatherResponse>()
     val forecast: LiveData<WeatherResponse> get() = _forecast
 
-    private fun getForecast() {
+    fun getForecast(city: String?, unit: String?) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = repoImpl.getForecast()
+            val response = repoImpl.getForecast(city, unit)
             _forecast.postValue(response)
         }
     }

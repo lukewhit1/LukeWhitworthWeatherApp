@@ -5,12 +5,12 @@ import com.example.lukewhitworthweatherapp.model.WeatherResponse
 
 interface WeatherRepo {
     // update to take in city as variable
-    suspend fun getForecast() : WeatherResponse
+    suspend fun getForecast(city: String?, unit: String?) : WeatherResponse
 }
 
 class WeatherRepoImpl (private val service: ApiService = ApiService.getApiService()): WeatherRepo{
-    override suspend fun getForecast(): WeatherResponse {
-        val response = service.getForecast()
+    override suspend fun getForecast(city: String?, unit: String?): WeatherResponse {
+        val response = service.getForecast(name = city, units = unit)
 
         if (response.isSuccessful) {
             return response.body()!!

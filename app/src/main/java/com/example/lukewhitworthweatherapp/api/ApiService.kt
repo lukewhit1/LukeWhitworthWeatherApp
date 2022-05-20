@@ -13,13 +13,9 @@ const val APP_ID = "d4da297f8dec7cecf03c51cd9fff96b6"
 interface ApiService {
     @GET("forecast")
     suspend fun getForecast(
-        //TODO
-        // temp string for testing
-        @Query("q") name: String? = "vancouver,ca",
-        //@Query("q") name: String? = null,
+        @Query("q") name: String? = null,
         @Query("appid") apiKey: String = APP_ID,
-        /////////make this configurable
-        @Query("units") units: String = "metric"
+        @Query("units") units: String? = "default"
     ): Response<WeatherResponse>
 
     companion object {

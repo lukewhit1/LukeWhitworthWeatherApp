@@ -1,16 +1,19 @@
 package com.example.lukewhitworthweatherapp.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import java.util.*
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 data class WeatherResponse(
     val list: List<WeatherListItem>
 )
 
+@Parcelize
 data class WeatherListItem(
     val coord: Coordinates,
-    val weather: List<Weather>,
+    val weather: @RawValue List<Weather>,
     val main: Main,
     val wind: Wind,
     val clouds: Clouds,
@@ -20,9 +23,12 @@ data class WeatherListItem(
     val id: Int,
     val name: String,
     val cod: Int
-) {
+): Parcelable {
     fun getDescription(): String {
         return this.weather[0].main.capitalizeWords()
+    }
+    fun getDetailedDescription(): String {
+        return this.weather[0].description.capitalizeWords()
     }
     fun getTemp(): String {
         return "${this.main.temp.roundToInt()}°"
@@ -39,10 +45,11 @@ data class WeatherListItem(
 
 }
 
+@Parcelize
 data class Coordinates(
     val lon: Double,
     val lat: Double
-)
+): Parcelable
 
 data class Weather(
     val id: Int,
@@ -51,6 +58,7 @@ data class Weather(
     val icon: String
 )
 
+@Parcelize
 data class Main(
     val temp: Double,
     val feels_like: Double,
@@ -58,17 +66,20 @@ data class Main(
     val temp_max: Double,
     val pressure: Int,
     val humidity: Int
-)
+): Parcelable
 
+@Parcelize
 data class Wind(
     val speed: Double,
     val deg: Int
-)
+): Parcelable
 
+@Parcelize
 data class Clouds(
     val all: Int
-)
+): Parcelable
 
+@Parcelize
 data class WeatherSys(
     val type: Int,
     val id: Int,
@@ -76,4 +87,4 @@ data class WeatherSys(
     val Country: String,
     val sunrise: Int,
     val sunset: Int
-)
+): Parcelable

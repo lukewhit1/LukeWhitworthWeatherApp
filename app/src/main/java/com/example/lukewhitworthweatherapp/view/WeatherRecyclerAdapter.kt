@@ -7,9 +7,9 @@ import com.bumptech.glide.Glide
 import com.example.lukewhitworthweatherapp.databinding.ForecastListItemBinding
 import com.example.lukewhitworthweatherapp.model.WeatherListItem
 
-
-class WeatherRecyclerAdapter(private val forecast: MutableList<WeatherListItem> = mutableListOf()):
-    RecyclerView.Adapter<WeatherRecyclerAdapter.WeatherViewHolder>(){
+class WeatherRecyclerAdapter(private val forecast: MutableList<WeatherListItem> = mutableListOf(),
+                             private val openDetails: (WeatherListItem) -> Unit
+                             ): RecyclerView.Adapter<WeatherRecyclerAdapter.WeatherViewHolder>() {
 
         fun setForecast(newList: List<WeatherListItem>) {
             forecast.clear()
@@ -23,9 +23,14 @@ class WeatherRecyclerAdapter(private val forecast: MutableList<WeatherListItem> 
                     .load("https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png")
                     .into(binding.ivImage)
 
+                // Scroll Fragment
                 binding.tvTemperature.text = forecastItem.getTemp()
                 binding.tvDescription.text = forecastItem.getDescription()
                 binding.tvFeelsLike.text = forecastItem.getFeelsLike()
+
+                binding.root.setOnClickListener {
+                    openDetails(forecastItem)
+                }
             }
         }
 

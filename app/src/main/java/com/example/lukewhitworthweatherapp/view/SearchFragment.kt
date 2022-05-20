@@ -1,4 +1,4 @@
-package com.example.lukewhitworthweatherapp
+package com.example.lukewhitworthweatherapp.view
 
 import android.R
 import android.os.Bundle
@@ -18,7 +18,7 @@ class SearchFragment : Fragment()  {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
 
         setUpSpinner()
@@ -32,15 +32,20 @@ class SearchFragment : Fragment()  {
             }
         })
 
-        binding.btnSearch.setOnClickListener(View.OnClickListener {
+        binding.btnSearch.setOnClickListener {
             val cityInput = binding.etCityInput.text.toString()
-            val tempInput = binding.spinUnitSelect.selectedItem.toString()
+            val unitInput = binding.spinUnitSelect.selectedItem.toString()
 
             val transaction = activity?.supportFragmentManager?.beginTransaction()
-            transaction?.replace(com.example.lukewhitworthweatherapp.R.id.main_view, ScrollFragment())
-                ?.commit()
-        })
+            transaction?.replace(com.example.lukewhitworthweatherapp.R.id.main_view, ScrollFragment(cityInput, unitInput))
+                ?.addToBackStack(null)?.commit()
+        }
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setUpSpinner() {

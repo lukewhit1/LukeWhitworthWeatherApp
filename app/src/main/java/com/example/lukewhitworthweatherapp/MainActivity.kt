@@ -2,6 +2,7 @@ package com.example.lukewhitworthweatherapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.lukewhitworthweatherapp.view.SearchFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

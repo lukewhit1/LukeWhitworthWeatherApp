@@ -33,10 +33,12 @@ class SearchFragment : Fragment()  {
         })
 
         binding.btnSearch.setOnClickListener(View.OnClickListener {
-            // TODO
-            // go to scroll
-            // pass through city and selected units
+            val cityInput = binding.etCityInput.text.toString()
+            val tempInput = binding.spinUnitSelect.selectedItem.toString()
 
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(com.example.lukewhitworthweatherapp.R.id.main_view, ScrollFragment())
+                ?.commit()
         })
         return binding.root
     }

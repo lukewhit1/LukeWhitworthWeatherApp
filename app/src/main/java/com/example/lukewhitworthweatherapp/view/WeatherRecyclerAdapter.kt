@@ -45,8 +45,4 @@ class WeatherRecyclerAdapter(private val forecast: MutableList<WeatherListItem> 
     override fun getItemCount(): Int {
         return forecast.size
     }
-
-    private fun getPics() {
-
-    }
 }

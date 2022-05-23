@@ -41,13 +41,13 @@ class ScrollFragment(private val city: String?, private var unit: String?) : Fra
         val cityTitle = city?.split(",")?.get(0)
         binding.tvCityTitle.text = cityTitle?.replaceFirstChar(Char::titlecase)
 
-        unit = when(unit) {
+        val convertedUnit = when(unit) {
             "°C" -> "metric"
             "°F" -> "imperial"
             else -> "default"  // kelvin is the default return value
         }
 
-        viewModel.getForecast(city, unit)
+        viewModel.getForecast(city, convertedUnit)
         configureObserver()
         return binding.root
     }
